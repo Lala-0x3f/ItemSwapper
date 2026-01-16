@@ -19,10 +19,7 @@ public class ServerItemHandler {
     private static final ConfigManager configManager = ConfigManager.getInstance();
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
-        if (configManager.getConfig().disableShulkers) {
-            // no refill allowed
-            return;
-        }
+        // Shulker restrictions removed - always allow
         try {
             if (ShulkerHelper.isShulker(InventoryUtil.getSelected(player.getInventory()).getItem())) {
                 // Don't try to put a shulker into another shulker
@@ -42,10 +39,7 @@ public class ServerItemHandler {
     }
 
     public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
-        if (configManager.getConfig().disableShulkers) {
-            // no refill allowed
-            return;
-        }
+        // Shulker restrictions removed - always allow
         try {
             ItemStack target = player.getInventory().getItem(payload.slot());
             if (target == null || target.isEmpty()) {

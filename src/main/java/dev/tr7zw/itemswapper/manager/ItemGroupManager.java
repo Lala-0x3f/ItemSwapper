@@ -89,7 +89,8 @@ public class ItemGroupManager {
             }
         }
         // check if it's a valid container that can be opened
-        if (current == null && slot != -1 && !ConfigManager.getInstance().getConfig().disableShulkers) {
+        // Shulker restrictions removed - always allow
+        if (current == null && slot != -1) {
             ContainerProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
                     .getContainerProvider(clicked.getItem());
             if (provider != null) {

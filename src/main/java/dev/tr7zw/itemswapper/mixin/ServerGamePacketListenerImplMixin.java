@@ -61,25 +61,21 @@ public class ServerGamePacketListenerImplMixin {
  //? if >= 1.20.2 {
 
               if ((Object) this instanceof ServerGamePacketListenerImpl gamePacketListener) {
-                  // Don't apply this logic, if the server has the mod disabled.
-                  if (!configManager.getConfig().serverPreventModUsage
-                          && serverboundCustomPayloadPacket.payload() instanceof SwapItemPayload bytebuf) {
+                  // Server restrictions removed - mod is always enabled
+                  if (serverboundCustomPayloadPacket.payload() instanceof SwapItemPayload bytebuf) {
                       ItemSwapperSharedServer.INSTANCE.getItemHandler().swapItem(gamePacketListener.player, bytebuf);
                   }
-                  if (!configManager.getConfig().serverPreventModUsage
-                          && serverboundCustomPayloadPacket.payload() instanceof RefillItemPayload bytebuf) {
+                  if (serverboundCustomPayloadPacket.payload() instanceof RefillItemPayload bytebuf) {
                       ItemSwapperSharedServer.INSTANCE.getItemHandler().refillSlot(gamePacketListener.player, bytebuf);
                   }
               }
  //? } else {
 /^
                  CustomPacketPayload customPacketPayload = ((CustomPayloadLoader)serverboundCustomPayloadPacket).resolveObject(serverboundCustomPayloadPacket.getIdentifier(), serverboundCustomPayloadPacket.getData());
-                     if (customPacketPayload instanceof SwapItemPayload bytebuf
-                             && !configManager.getConfig().serverPreventModUsage) {
+                     if (customPacketPayload instanceof SwapItemPayload bytebuf) {
                          ItemSwapperSharedServer.INSTANCE.getItemHandler().swapItem(player, bytebuf);
                      }
-                     if (customPacketPayload instanceof RefillItemPayload bytebuf
-                            && !configManager.getConfig().serverPreventModUsage) {
+                     if (customPacketPayload instanceof RefillItemPayload bytebuf) {
                         ItemSwapperSharedServer.INSTANCE.getItemHandler().refillSlot(player, bytebuf);
                      }
  ^///? }

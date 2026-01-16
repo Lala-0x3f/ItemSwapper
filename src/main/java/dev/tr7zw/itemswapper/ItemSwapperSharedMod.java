@@ -92,11 +92,8 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if (server != null && disableOnIp.contains(server.ip) && !disabledByPlayer) {
-            setDisabledByPlayer(true);
-            LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!",
-                    server.ip);
-        } else if (keybind.isDown()) {
+        // Server restrictions removed - mod is always enabled
+        if (keybind.isDown()) {
             if (isModDisabled()) {
                 minecraft.gui.setOverlayMessage(
                         ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED),
@@ -144,12 +141,8 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
         if (!pressed) {
-            if (isDisabledByPlayer()) {
-                minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.disabledByPlayer")
-                        .withStyle(ChatFormatting.RED), false);
-            } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
-                openConfirmationScreen();
-            } else if (overlay == null) {
+            // Server restrictions removed - always allow mod to function
+            if (overlay == null) {
                 if (!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
                     minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.usedwhitelist")
@@ -270,11 +263,13 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     }
 
     public boolean areShulkersEnabled() {
-        return this.enableShulkers && !configManager.getConfig().disableShulkers;
+        // Shulker restrictions removed - always enabled
+        return this.enableShulkers;
     }
 
     public boolean isEnableRefill() {
-        return enableRefill && !configManager.getConfig().disableShulkers;
+        // Shulker restrictions removed - always enabled
+        return enableRefill;
     }
 
     public void setEnableRefill(boolean enableRefill) {

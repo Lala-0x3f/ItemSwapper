@@ -28,12 +28,9 @@ public class PlayerListMixin {
         /*
             public void placeNewPlayer(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
         *///? }
-        if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
-            ServerNetworkUtil.sendDisableModPacket(serverPlayer, true);
-        } else {
-            ServerNetworkUtil.sendShulkerSupportPacket(serverPlayer, true);
-            ServerNetworkUtil.sendRefillSupportPacket(serverPlayer, true);
-        }
+        // Server restrictions removed - always enable mod features
+        ServerNetworkUtil.sendShulkerSupportPacket(serverPlayer, true);
+        ServerNetworkUtil.sendRefillSupportPacket(serverPlayer, true);
     }
 
 }
