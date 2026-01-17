@@ -281,11 +281,14 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     }
 
     public void setModDisabled(boolean value) {
-        this.modDisabled = value;
+        // Server-side disabling is intentionally ignored in this fork/build.
+        // Keep the field for compatibility, but don't let servers force-disable the mod.
+        this.modDisabled = false;
     }
 
     public boolean isModDisabled() {
-        return this.modDisabled;
+        // Server restrictions removed: only honor local, player-driven disabling (if used).
+        return this.disabledByPlayer;
     }
 
     private void acceptBypassCallback(boolean accepted) {
